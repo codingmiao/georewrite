@@ -7,6 +7,8 @@ import java.sql.Types;
 import java.util.HashMap;
 
 import org.h2.tools.SimpleResultSet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.vividsolutions.jts.geom.Geometry;
 import com.vividsolutions.jts.io.ParseException;
@@ -20,6 +22,26 @@ import com.vividsolutions.jts.io.WKTReader;
  * @date 2016年12月27日
  */
 public abstract class GeoSqlQueryer {
+	private static final Logger logger = LoggerFactory.getLogger(GeoSqlQueryer.class);
+	
+	/**
+	 * 列对象获取器,便于在循环对象前把 if ("SHAPE".equals(columnName) xxx这样的逻辑先做掉
+	 * 
+	 * @author liuyu
+	 * @date 2016年12月28日
+	 * @param <T> 查询得到的对象
+	 */
+	@FunctionalInterface
+	protected static interface ObjGetter<T> {
+		/**
+		 * 获取列值
+		 * @param feature 查询得到的对象
+		 * @param fid fid
+		 * @param tcode TCODE
+		 * @return
+		 */
+		public Object get(T feature, int fid, String tcode);
+	}
 
 	/**
 	 * 结果集列定义
@@ -158,7 +180,7 @@ public abstract class GeoSqlQueryer {
 					if ("fid".equals(c)) {
 						rs.addColumn("fid", Types.INTEGER, 10, 0);
 						continue;
-					}else if ("TCODE".equals(c)) {
+					} else if ("TCODE".equals(c)) {
 						rs.addColumn("TCODE", Types.VARCHAR, 10, 0);
 						continue;
 					} else {
@@ -172,8 +194,8 @@ public abstract class GeoSqlQueryer {
 				rs.addColumn(c, type, cd.length, cd.precision);
 			}
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error("buildSimpleResultSetByColumns 出错", e);
+			throw new RuntimeException("buildSimpleResultSetByColumns 出错", e);
 		}
 		return rs;
 	}
