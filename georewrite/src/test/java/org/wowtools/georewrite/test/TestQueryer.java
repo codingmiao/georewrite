@@ -12,7 +12,9 @@ import org.wowtools.georewrite.GeoSqlQueryer;
 import org.wowtools.georewrite.PrtreeIndex;
 
 import com.vividsolutions.jts.geom.Coordinate;
+import com.vividsolutions.jts.geom.Geometry;
 import com.vividsolutions.jts.geom.GeometryFactory;
+import com.vividsolutions.jts.geom.LineString;
 import com.vividsolutions.jts.geom.Point;
 import com.vividsolutions.jts.io.WKBWriter;
 
@@ -41,7 +43,7 @@ public class TestQueryer extends GeoSqlQueryer {
 		GeometryFactory gf = new GeometryFactory();
 		WKBWriter wr = new WKBWriter();
 		ArrayList<MyFeature> features = new ArrayList<>();
-		HashMap<Integer, Point> tmpMap = new HashMap<>();// 临时存一下geometry，供索引用
+		HashMap<Integer, Geometry> tmpMap = new HashMap<>();// 临时存一下geometry，供索引用
 		for (int i = 0; i < num; i++) {
 			MyFeature f = new MyFeature();
 			f.id = i;
@@ -52,6 +54,20 @@ public class TestQueryer extends GeoSqlQueryer {
 			f.wkb = wr.write(pt);
 			features.add(f);
 			tmpMap.put(f.id, pt);
+		}
+		//乱入一波线，geoserver一个图层可以显示多种类型的几何对象，只需配置好rule
+		for (int i = num; i < num*2; i++) {
+			MyFeature f = new MyFeature();
+			f.id = i;
+			f.name = "LINE-" + i;
+			f.value = r.nextDouble();
+			Coordinate coordinate1 = new Coordinate(100 + r.nextDouble() * 20, 20 + r.nextDouble() * 10);
+			Coordinate coordinate2 = new Coordinate(100 + r.nextDouble() * 20, 20 + r.nextDouble() * 10);
+			Coordinate[] coords = new Coordinate[]{coordinate1,coordinate2};
+			LineString line = gf.createLineString(coords);
+			f.wkb = wr.write(line);
+			features.add(f);
+			tmpMap.put(f.id, line);
 		}
 		sidx = new PrtreeIndex<TestQueryer.MyFeature>(features, (feature) -> {
 			return tmpMap.get(feature.id);
