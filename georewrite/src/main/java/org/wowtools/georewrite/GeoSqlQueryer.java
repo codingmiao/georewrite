@@ -224,17 +224,28 @@ public abstract class GeoSqlQueryer {
 	 *            将输入的范围wkt
 	 * @return [xmin,ymin,xmax,ymax]
 	 */
+	protected double[] pg2ExtentCoord(Geometry geo) {
+		// 得到几何对象外接矩形，进而构造一个PrtreeLeafNode节点
+		Coordinate[] extent = geo.getEnvelope().getCoordinates();
+		double xmin = extent[0].x;
+		double ymin = extent[0].y;
+		double xmax = extent[2].x;
+		double ymax = extent[2].y;
+		return new double[]{xmin,ymin,xmax,ymax};
+	}
+	
+	/**
+	 * 将输入的范围wkt转为[xmin,ymin,xmax,ymax]
+	 * 
+	 * @param pg
+	 *            将输入的范围wkt
+	 * @return [xmin,ymin,xmax,ymax]
+	 */
 	protected double[] pg2ExtentCoord(String pg) {
 		try {
 			WKTReader r = new WKTReader();
 			Geometry geo = r.read(pg);
-			// 得到几何对象外接矩形，进而构造一个PrtreeLeafNode节点
-			Coordinate[] extent = geo.getEnvelope().getCoordinates();
-			double xmin = extent[0].x;
-			double ymin = extent[0].y;
-			double xmax = extent[2].x;
-			double ymax = extent[2].y;
-			return new double[]{xmin,ymin,xmax,ymax};
+			return pg2ExtentCoord(geo);
 		} catch (ParseException e) {
 			throw new RuntimeException("解析输入范围错误:" + pg, e);
 		}
