@@ -10,6 +10,7 @@ import org.h2.tools.SimpleResultSet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.vividsolutions.jts.geom.Coordinate;
 import com.vividsolutions.jts.geom.Geometry;
 import com.vividsolutions.jts.io.ParseException;
 import com.vividsolutions.jts.io.WKTReader;
@@ -211,6 +212,29 @@ public abstract class GeoSqlQueryer {
 		try {
 			WKTReader r = new WKTReader();
 			return r.read(pg);
+		} catch (ParseException e) {
+			throw new RuntimeException("解析输入范围错误:" + pg, e);
+		}
+	}
+	
+	/**
+	 * 将输入的范围wkt转为[xmin,ymin,xmax,ymax]
+	 * 
+	 * @param pg
+	 *            将输入的范围wkt
+	 * @return [xmin,ymin,xmax,ymax]
+	 */
+	protected double[] pg2ExtentCoord(String pg) {
+		try {
+			WKTReader r = new WKTReader();
+			Geometry geo = r.read(pg);
+			// 得到几何对象外接矩形，进而构造一个PrtreeLeafNode节点
+			Coordinate[] extent = geo.getEnvelope().getCoordinates();
+			double xmin = extent[0].x;
+			double ymin = extent[0].y;
+			double xmax = extent[2].x;
+			double ymax = extent[2].y;
+			return new double[]{xmin,ymin,xmax,ymax};
 		} catch (ParseException e) {
 			throw new RuntimeException("解析输入范围错误:" + pg, e);
 		}
