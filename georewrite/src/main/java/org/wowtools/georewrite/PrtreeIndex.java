@@ -132,7 +132,7 @@ public class PrtreeIndex<T> {
 	}
 
 	/**
-	 * 范围查询，过滤出传入的bbox范围内的feature
+	 * 范围查询
 	 * 
 	 * @param xmin
 	 *            xmin
