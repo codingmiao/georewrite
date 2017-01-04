@@ -153,13 +153,14 @@ public class GwH2Manager {
 		String tableName = jo.getString("tableName");
 		JSONArray ja = jo.getJSONArray("columns");
 		HashMap<String, ColumnDefinition> columnInfo = new HashMap<>(ja.length());
-		ja.forEach((c) -> {
-			JSONObject jc = (JSONObject) c;
+		int n = ja.length();
+		for(int i = 0;i<n;i++){
+			JSONObject jc = ja.getJSONObject(i);
 			String name = jc.getString("name");
 			ColumnDefinition cd = new ColumnDefinition(name, jc.getInt("type"), jc.getInt("length"),
 					jc.getInt("precision"));
 			columnInfo.put(name, cd);
-		});
+		}
 		GeoSqlQueryer query;
 		try {
 			String impl = jo.getString("impl");
