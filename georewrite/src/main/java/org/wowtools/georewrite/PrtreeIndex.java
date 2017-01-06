@@ -113,6 +113,8 @@ public class PrtreeIndex<T> {
 			if (extent.length == 1) {// 点对象的外接矩形仅包含一个点
 				w = 0;
 				h = 0;
+			} else if (extent.length == 0) {// 点对象的外接矩形仅包含一个点
+				continue;
 			} else {// 非点对象的外接矩形包含四个点,第三个点为(xmax,ymax)
 				w = extent[2].x - xmin;
 				h = extent[2].y - ymin;
