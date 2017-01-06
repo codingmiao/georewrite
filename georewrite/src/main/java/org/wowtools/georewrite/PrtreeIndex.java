@@ -113,11 +113,16 @@ public class PrtreeIndex<T> {
 			if (extent.length == 1) {// 点对象的外接矩形仅包含一个点
 				w = 0;
 				h = 0;
-			} else if (extent.length == 0) {// 点对象的外接矩形仅包含一个点
-				continue;
-			} else {// 非点对象的外接矩形包含四个点,第三个点为(xmax,ymax)
+			} else if (extent.length == 5) {// 非点对象的外接矩形包含5个点,第三个点为(xmax,ymax)
 				w = extent[2].x - xmin;
 				h = extent[2].y - ymin;
+			} else if (extent.length == 2) {// x或y相同的线
+				w = extent[1].x - xmin;
+				h = extent[1].y - ymin;
+			} else if (extent.length == 0) {// empty
+				continue;
+			} else {
+				throw new RuntimeException("未处理的extent:" + extent.length);
 			}
 			PrtreeLeafNode leafNode = new PrtreeLeafNode(feature, xmin, ymin, w, h);
 			if (null != leafNode) {
