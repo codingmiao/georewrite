@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.wowtools</groupId>
 	<artifactId>georewrite</artifactId>
-	<version>1.0</version>
+	<version>1.1</version>
 	<name>georewrite</name>
 	<description>重写geoserver发送到h2的sql，以实现自定义数据源</description>
 	<properties>
@@ -15,7 +15,7 @@
 		<dependency>
 			<groupId>org.wowtools</groupId>
 			<artifactId>catframe-dao</artifactId>
-			<version>1.0</version>
+			<version>1.03</version>
 		</dependency>
 		<dependency>
 			<groupId>org.geotools.jdbc</groupId>
