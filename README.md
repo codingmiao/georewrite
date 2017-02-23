@@ -47,10 +47,7 @@ path>\webapps\geoserver\WEB-INF\classes下，或者复制打包的jar文件到<G
 ------
 
  
-georewrite基于我的另外两个项目构建，你还需要clone它们：
-[https://github.com/codingmiao/catframe][5]一些通用工具
-[https://github.com/codingmiao/h2][6]魔改版H2，用于sql转发
-三个项目都是maven构建的，所以clone下来后，执行mvn clean install即可。
+clone下来后，执行mvn clean install即可。
 
 如果不想使用maven，也可以直接下载[releases文件][7]，将其中的jar直接导入项目中即可。
 
