@@ -28,7 +28,7 @@ public class GeoSqlRewriter implements SqlRewriter {
 		e = sql.indexOf("'",b);
 		String fun = sql.substring(b,e);
 		b = sql.indexOf("POLYGON ((");
-		e = sql.indexOf("))",e)+2;
+		e = sql.indexOf("))",b)+2;
 		String pg = sql.substring(b,e);
 		StringBuilder sb = new StringBuilder();
 		sb.append("select * ");
