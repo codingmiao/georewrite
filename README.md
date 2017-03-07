@@ -43,13 +43,13 @@ path>\webapps\geoserver\WEB-INF\classes下，或者复制打包的jar文件到<G
 
 ![p2][4]
 
-2、clone georewrite
+2、在项目中添加maven依赖
 ------
-
- 
-clone下来后，执行mvn clean install即可。
-
-如果不想使用maven，也可以直接下载[releases文件][7]，将其中的jar直接导入项目中即可。
+        <dependency>
+            <groupId>org.wowtools</groupId>
+            <artifactId>georewrite</artifactId>
+            <version>1.11</version>
+        </dependency>
 
 3、编写自定义查询器:
 ------
