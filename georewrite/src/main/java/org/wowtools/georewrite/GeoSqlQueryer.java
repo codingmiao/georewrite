@@ -24,25 +24,6 @@ import com.vividsolutions.jts.io.WKTReader;
  */
 public abstract class GeoSqlQueryer {
 	private static final Logger logger = LoggerFactory.getLogger(GeoSqlQueryer.class);
-	
-	/**
-	 * 列对象获取器,便于在循环对象前把 if ("SHAPE".equals(columnName) xxx这样的逻辑先做掉
-	 * 
-	 * @author liuyu
-	 * @date 2016年12月28日
-	 * @param <T> 查询得到的对象
-	 */
-	@FunctionalInterface
-	protected static interface ObjGetter<T> {
-		/**
-		 * 获取列值
-		 * @param feature 查询得到的对象
-		 * @param fid fid
-		 * @param tcode TCODE
-		 * @return
-		 */
-		public Object get(T feature, int fid, String tcode);
-	}
 
 	/**
 	 * 结果集列定义

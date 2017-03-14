@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.wowtools</groupId>
 	<artifactId>georewrite</artifactId>
-	<version>1.11</version>
+	<version>1.2</version>
 	<name>georewrite</name>
 	<description>重写geoserver发送到h2的sql，以实现自定义数据源</description>
 	<properties>
