@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.Random;
 
 import org.h2.tools.SimpleResultSet;
+import org.json.JSONObject;
 import org.wowtools.georewrite.GeoSqlQueryer;
 import org.wowtools.georewrite.ObjGetter;
 import org.wowtools.georewrite.PrtreeIndex;
@@ -76,8 +77,9 @@ public class TestQueryer extends GeoSqlQueryer {
         });
     }
 
-    public TestQueryer(String tableName, HashMap<String, ColumnDefinition> columnInfo) {
-        super(tableName, columnInfo);
+    public TestQueryer(String tableName, HashMap<String, ColumnDefinition> columnInfo, JSONObject initParam) {
+        super(tableName, columnInfo, initParam);
+        System.out.println(initParam);//可以根据initParam做一些具体操作
     }
 
     @Override

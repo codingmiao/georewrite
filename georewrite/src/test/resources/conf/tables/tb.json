@@ -1,30 +1,33 @@
 {
-	"impl":"org.wowtools.georewrite.test.TestQueryer",
-	"tableName":"RANDOM_POINT",
-	"columns":[
-		{
-			"name":"id",
-			"type":4,
-			"length":10,
-			"precision":0
-		},
-		{
-			"name":"NAME",
-			"type":12,
-			"length":32,
-			"precision":0
-		},
-		{
-			"name":"VALUE",
-			"type":2,
-			"length":10,
-			"precision":6
-		},
-		{
-			"name":"SHAPE",
-			"type":10000,
-			"length":2000,
-			"precision":0
-		}
-	]
+  "impl": "org.wowtools.georewrite.test.TestQueryer",
+  "initParam": {
+    "s": "这里是初始化的参数，可选，将需要的参数转为json放这即可"
+  },
+  "tableName": "RANDOM_POINT",
+  "columns": [
+    {
+      "name": "id",
+      "type": 4,
+      "length": 10,
+      "precision": 0
+    },
+    {
+      "name": "NAME",
+      "type": 12,
+      "length": 32,
+      "precision": 0
+    },
+    {
+      "name": "VALUE",
+      "type": 2,
+      "length": 10,
+      "precision": 6
+    },
+    {
+      "name": "SHAPE",
+      "type": 10000,
+      "length": 2000,
+      "precision": 0
+    }
+  ]
 }
